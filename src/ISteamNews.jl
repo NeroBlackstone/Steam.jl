@@ -15,7 +15,7 @@ const PATH_news_for_app= "/ISteamNews/GetNewsForApp/v0002/"
         tags::Union{Vector{String},Nothing}
     end    
 
-Game news.
+Get game news by id.
 
 # Fields:
 - `gid`: News ID.
