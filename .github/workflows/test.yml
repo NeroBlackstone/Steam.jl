@@ -30,4 +30,4 @@ jobs:
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
         env:
-          super_secret: ${{ secrets.STEAM_KEY }}
+          STEAM_KEY: ${{ secrets.STEAM_KEY }}
