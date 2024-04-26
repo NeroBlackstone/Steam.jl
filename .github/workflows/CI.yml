@@ -18,7 +18,6 @@ jobs:
       matrix:
         version:
           - '1' # Replace this with the minimum Julia version that your package supports.
-          - 'nightly'
         os:
           - ubuntu-latest
           - macOS-latest
