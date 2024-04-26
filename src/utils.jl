@@ -1,17 +1,20 @@
 """
-    parse_api_key()
-    parse_api_key(api_key::String="")
+    parse_api_key()::String
 
 Initialize and verify the Steam Web API key.
 
 If `api_key` is unspecified, Steam Web API key is read from `\$HOME/.steam/apikey.txt`.
 """
-function parse_api_key(api_key::String="")::String
-    key =  if length(api_key)!=0
-        api_key
-    else
-        open(joinpath("$(homedir())",".steam","apikey.txt")) do f 
-            readline(f) 
+function parse_api_key()::String
+    key = try ENV["STEAM_KEY"] catch end
+
+    if isnothing(key)
+        try
+            key = open(joinpath("$(homedir())",".steam","apikey.txt")) do f 
+                readline(f) 
+            end      
+        catch
+            throw("Can't find API key.")
         end
     end
     
