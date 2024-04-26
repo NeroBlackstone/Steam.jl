@@ -16,3 +16,10 @@ Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 
 [targets]
 test = ["Test","Documenter"]
+
+[compat]
+julia = ">=1.10"
+HTTP = "1.10"
+JSON = "0.21"
+Serde = "3.0"
+URIs = "1.5"
