@@ -1,9 +1,9 @@
-# Player Summaries
+# Achievement Percentage
 
 ```@docs
-get_player_summaries
+get_global_achievement_percentages_for_app
 ```
 
 ```@docs
-SteamWebAPIs.Player
+SteamWebAPIs.AchievementPercentage
 ```

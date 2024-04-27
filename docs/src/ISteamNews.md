@@ -1,9 +1,13 @@
 # Achievement Percentage
 
 ```@docs
-get_global_achievement_percentages_for_app
+get_news_for_app
 ```
 
 ```@docs
-SteamWebAPIs.AchievementPercentage
+SteamWebAPIs.Appnews
+```
+
+```@docs
+SteamWebAPIs.NewsItem
 ```
