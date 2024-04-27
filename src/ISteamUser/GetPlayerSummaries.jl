@@ -76,12 +76,11 @@ struct Player
 end
 
 """
-    get_player_summaries(key::String,steamids::Vector{Int})::Vector{Player}
+    get_player_summaries(steamids::Vector{Int})::Vector{Player}
 
 **Summary**: `get_player_summaries` returns basic profile information for a list of 64-bit Steam IDs.
 
 # Arguments
-- `key`: Steam Web API key.
 - `steamids`: Vector of 64 bit Steam IDs to return profile information for. Up to 100 Steam IDs can be requested.
 
 # Example
@@ -106,10 +105,13 @@ Array{SteamWebAPIs.Player}((1,))
     loccountrycode: String "CN"
     locstatecode: String "03"
     loccityid: Int64 10221
+    realname: Nothing nothing
+    gameextrainfo: Nothing nothing
+    gameid: Nothing nothing
 ```
 """
-function get_player_summaries(key::String,steamids::Vector{Int})::Vector{Player}
+function get_player_summaries(steamids::Vector{Int})::Vector{Player}
     is_above_zero(steamids...)
-    r=HTTP.get(query_url(PATH_player_summaries;query=query_dict(;key,steamids)))
+    r=HTTP.get(query_url(PATH_player_summaries;query=query_dict(;SteamWebAPIs.key,steamids)))
     return deser_json(Vector{Player},JSON.json(first(values(first(values(JSON.parse(String(r.body))))))))
 end

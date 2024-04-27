@@ -1,6 +1,4 @@
 @testset "ISteamUser" begin
-    key=parse_api_key()
-	players = get_player_summaries(key,[76561198202322923,76561198075263524])
-    @show dump(get_player_summaries(key,[76561198202322923]))
+	players = get_player_summaries([76561199080934614,76561198288810576])
 	@test length(players) ==2
 end
