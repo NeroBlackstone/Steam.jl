@@ -85,7 +85,7 @@ end
 
 # Example
 ```julia-repl
-julia> dump(get_player_summaries(key,[76561198202322924]))
+julia> dump(get_player_summaries([76561198202322924]))
 Array{SteamWebAPIs.Player}((1,))
   1: SteamWebAPIs.Player
     steamid: Int64 76561198202322924
