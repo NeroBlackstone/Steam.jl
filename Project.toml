@@ -18,7 +18,7 @@ Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 test = ["Test","Documenter"]
 
 [compat]
-julia = ">=1.10"
+julia = "1"
 HTTP = "1.10"
 JSON = "0.21"
 Serde = "3.0"
