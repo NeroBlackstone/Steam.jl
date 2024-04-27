@@ -6,7 +6,7 @@ Steam Web API wrapper for Julia
 
 Please apply for your [steam api key](https://steamcommunity.com/dev/apikey) first. Then paste your api key at `$HOME/.steam/apikey.txt`. Or save api key to `STEAM_KEY` environment variable.
 
-# Initialize
+# Initialization
 
 Before calling any interface that requires an API key, you need to initialize the Steam Web API key with `init_key()`. Otherwise, you can only call interfaces that do not require an API key.
 
