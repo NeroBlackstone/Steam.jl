@@ -14,7 +14,7 @@ Before calling any interface that requires an API key, you need to initialize th
 >julia init_key()
 ```
 
-# Implemented function
+# Implemented functions
 
 - [`get_news_for_app`](@ref)
 - [`get_player_summaries`](@ref)
