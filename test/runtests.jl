@@ -1,5 +1,5 @@
 using Test
-using Steam
+using SteamWebAPIs
 using URIs,HTTP,Serde,JSON
 
 include("apikey.jl")
