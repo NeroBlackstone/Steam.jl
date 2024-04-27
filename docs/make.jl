@@ -3,6 +3,7 @@ using Documenter,SteamWebAPIs
 
 makedocs(sitename="SteamWebAPIs.jl",
     pages=[
+        "Index.md",
         "ISteamNews"=>"ISteamNews.md",
         "ISteamUser"=>"ISteamUser.md",
         "ISteamUserStats"=>"ISteamUserStats.md",
