@@ -1,7 +1,13 @@
 push!(LOAD_PATH,"../src/")
-using Documenter,Steam
+using Documenter,SteamWebAPIs
 
-makedocs(sitename="My Documentation")
+makedocs(sitename="SteamWebAPIs.jl",
+    pages=[
+        "ISteamNews"=>"ISteamNews.md",
+        "ISteamUser"=>"ISteamUser.md",
+        "ISteamUserStats"=>"ISteamUserStats.md",
+    ]
+)
 
 deploydocs(
     repo="github.com/NeroBlackstone/SteamWebAPIs.jl"

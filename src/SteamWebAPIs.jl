@@ -4,9 +4,12 @@ using URIs,HTTP,Dates,JSON,Serde
 
 include("utils.jl")
 include("ISteamNews/GetNewsForApp.jl")
+include("ISteamUserStats/GetGlobalAchievementPercentagesForApp.jl")
+include("ISteamUser/GetPlayerSummaries.jl")
 
 export parse_api_key
 export get_news_for_app
+export get_global_achievement_percentages_for_app
+export get_player_summaries
 
-
-end # module Steam
+end # module SteamWebAPIs

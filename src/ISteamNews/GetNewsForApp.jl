@@ -113,5 +113,5 @@ function get_news_for_app(appid::Int;
     tages::Vector{String}=String[])::Appnews
     is_above_zero(appid,maxlength,count)
     r=HTTP.get(query_url(PATH_news_for_app;query=query_dict(;appid,maxlength,enddate,count,feeds,tages)))
-    return deser_json(Appnews,JSON.json((first(values(JSON.parse(String(r.body)))))))
+    return deser_json(Appnews,JSON.json(first(values(JSON.parse(String(r.body))))))
 end

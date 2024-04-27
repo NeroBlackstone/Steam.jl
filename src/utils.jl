@@ -47,4 +47,4 @@ query_dict(;args...)::Dict = filter(p->length(p[2])>0,Dict(("$(a[1])"=>query_str
 
 query_string(v::Union{Number,String})=v
 query_string(v::DateTime)=floor(Int,datetime2unix(v))
-query_string(v::Vector{String})=join(v,',')
+query_string(v::Union{Vector{String},Vector{<:Number}})=join(v,',')
