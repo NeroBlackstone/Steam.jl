@@ -21,6 +21,9 @@ const PATH_player_summaries = "/ISteamUser/GetPlayerSummaries/v0002/"
         loccountrycode::Union{String,Nothing}
         locstatecode::Union{Int,Nothing}
         loccityid::Union{Int,Nothing}
+        realname::Union{String,Nothing}
+        gameextrainfo::Union{String,Nothing}
+        gameid::Union{Int,Nothing}
     end
 
 Return type of [`get_player_summaries`](@ref).
