@@ -13,5 +13,5 @@ get_cities
 ```
 
 ```@docs
-Country
+SteamWebAPIs.Country
 ```
