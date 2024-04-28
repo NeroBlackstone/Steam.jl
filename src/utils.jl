@@ -31,7 +31,8 @@ function is_above_zero(args...)
     end
 end
 
-query_url(path::String;query::Dict) = URI(;scheme="http",host="api.steampowered.com",path=path,query=query)
+query_url(path::String;query::Dict=Dict{}(),host::String="api.steampowered.com") = 
+    URI(;scheme="http",host=host,path=path,query=query)
 
 query_dict(;args...)::Dict = filter(p->length(p[2])>0,Dict(("$(a[1])"=>query_string(a[2])) for a in args))
 

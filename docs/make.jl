@@ -7,6 +7,7 @@ makedocs(sitename="SteamWebAPIs.jl",
         "ISteamNews"=>"ISteamNews.md",
         "ISteamUser"=>"ISteamUser.md",
         "ISteamUserStats"=>"ISteamUserStats.md",
+        "QueryLocations"=>"QueryLocations.md"
     ]
 )
 

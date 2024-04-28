@@ -19,3 +19,6 @@ Before calling any interface that requires an API key, you need to initialize th
 - [`get_news_for_app`](@ref)
 - [`get_player_summaries`](@ref)
 - [`get_global_achievement_percentages_for_app`](@ref)
+- [`get_countries`](@ref)
+- [`get_states`](@ref)
+- [`get_cities`](@ref)
