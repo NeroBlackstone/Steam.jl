@@ -11,7 +11,3 @@ get_states
 ```@docs
 get_cities
 ```
-
-```@docs
-SteamWebAPIs.Country
-```
