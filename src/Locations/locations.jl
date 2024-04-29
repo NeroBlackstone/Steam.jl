@@ -1,19 +1,5 @@
 const PATH_Get_Countries = "/actions/QueryLocations/"
 
-"""
-    struct Country
-        countrycode::String
-        hasstates::Int
-        countryname::String
-    end
-
-Return type of [`get_countries`](@ref).
-
-# Fields:
-- `countrycode`: Code of country.
-- `hasstates`: Does this country have states. 1 for true, 0 for false.
-- `countryname`: Name of country.
-"""
 struct Country
     countrycode::String
     hasstates::Int
@@ -21,35 +7,19 @@ struct Country
 end
 
 """
-    get_countries()::Vector{Country}
+    get_countries()::Dict{String,Tuple{Bool,String}}
 
-**Summary**: `get_countries` returns a Vector of Countries.
+**Summary**: `get_countries` returns a Dict of Countries,key is country code, value is a Tuple, the first element of Tuple indicates whether there has stete, the second is countryname.
 
 # Example
 ```julia-repl
-julia> dump(get_countries())
-Array{SteamWebAPIs.Country}((250,))
-  1: SteamWebAPIs.Country
-    countrycode: String "US"
-    hasstates: Int64 1
-    countryname: String "United States"
-  2: SteamWebAPIs.Country
-    countrycode: String "CA"
-    hasstates: Int64 1
-    countryname: String "Canada"
-  ...
-  249: SteamWebAPIs.Country
-    countrycode: String "BY"
-    hasstates: Int64 1
-    countryname: String "Belarus"
-  250: SteamWebAPIs.Country
-    countrycode: String "BZ"
-    hasstates: Int64 1
-    countryname: String "Belize"
+julia> get_countries()
+countries = Dict("ES" => (1, "Spain")......"SM" => (1, "San Marino"))
 ```
 """
-function get_countries()::Vector{Country}
-    return deser_json(Vector{Country},String(HTTP.get(query_url(PATH_Get_Countries;host="steamcommunity.com")).body))
+function get_countries()::Dict{String,Tuple{Bool,String}}
+    countries = deser_json(Vector{Country},String(HTTP.get(query_url(PATH_Get_Countries;host="steamcommunity.com")).body))
+    return Dict(c.countrycode=>(c.hasstates == 1,c.countryname) for c in countries) 
 end
 
 struct State
