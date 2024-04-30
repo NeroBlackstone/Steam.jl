@@ -8,6 +8,7 @@ include("ISteamUserStats/GetGlobalAchievementPercentagesForApp.jl")
 include("ISteamUser/GetPlayerSummaries.jl")
 include("Locations/locations.jl")
 include("ISteamUser/GetFriendList.jl")
+include("ISteamUserStats/GetPlayerAchievements.jl")
 
 export init_key
 export get_news_for_app
@@ -17,5 +18,6 @@ export get_countries
 export get_states
 export get_cities
 export get_friend_list
+export get_player_achievements
 
 end # module SteamWebAPIs

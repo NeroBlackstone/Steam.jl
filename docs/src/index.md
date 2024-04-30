@@ -23,3 +23,4 @@ Before calling any interface that requires an API key, you need to initialize th
 - [`get_states`](@ref)
 - [`get_cities`](@ref)
 - [`get_friend_list`](@ref)
+- [`get_player_achievements`](@ref)
