@@ -9,7 +9,7 @@ const PATH_news_for_app= "/ISteamNews/GetNewsForApp/v0002/"
         author::String
         contents::String
         feedlabel::String
-        date::Int
+        date::DateTime
         feedname::String
         feed_type::Int
         tags::Union{Vector{String},Nothing}
@@ -25,7 +25,7 @@ Get game news by id.
 - `author`: News author.
 - `contents`: News contents, The length is determined by the `maxlength` keywords.
 - `feedlabel`: News feedlabel.
-- `date`: News publish date (unix time stamp).
+- `date`: News publish date.
 - `feedname`: News feedname.
 - `feed_type`: News type.
 - `tags`: News tags.
@@ -38,7 +38,7 @@ struct NewsItem
     author::String
     contents::String
     feedlabel::String
-    date::Int
+    date::DateTime
     feedname::String
     feed_type::Int
     tags::Union{Vector{String},Nothing}
@@ -87,22 +87,25 @@ end
 # Example
 ```julia-repl
 julia> dump(get_news_for_app(440;maxlength=10,enddate=now(),count=1,feeds=["steam_updates","tf2_blog"]))
-    Steam.Appnews
-    appid: Int64 440
-    newsitems: Array{Steam.NewsItem}((1,))
-        1: Steam.NewsItem
-        gid: Int64 5762994032406766352
-        title: String "Team Fortress 2 Update Released"
-        url: String "https://store.steampowered.com/news/220641/"
-        is_external_url: Bool false
-        author: String "Valve"
-        contents: String "An update ..."
-        feedlabel: String "Product Update"
-        date: Int64 1713822840
-        feedname: String "steam_updates"
-        feed_type: Int64 0
-        tags: Nothing nothing
-    count: Int64 1961
+SteamWebAPIs.Appnews
+  appid: Int64 440
+  newsitems: Array{SteamWebAPIs.NewsItem}((1,))
+    1: SteamWebAPIs.NewsItem
+      gid: Int64 5759616966668990190
+      title: String "Fireside Cup"
+      url: String "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/5759616966668990190"
+      is_external_url: Bool true
+      author: String "erics"
+      contents: String "{STEAM_CLA..."
+      feedlabel: String "Community Announcements"
+      date: Dates.DateTime
+        instant: Dates.UTInstant{Dates.Millisecond}
+          periods: Dates.Millisecond
+            value: Int64 63849838959000
+      feedname: String "steam_community_announcements"
+      feed_type: Int64 1
+      tags: Nothing nothing
+  count: Int64 3545
 ```
 """
 function get_news_for_app(appid::Int;

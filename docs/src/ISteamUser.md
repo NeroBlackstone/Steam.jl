@@ -5,14 +5,11 @@ get_player_summaries
 ```
 
 ```@docs
-get_friend_list
-```
-
-```@docs
-SteamWebAPIs.Friend
-```
-
-```@docs
 SteamWebAPIs.Player
 ```
 
+# Friend List
+
+```@docs
+get_friend_list
+```

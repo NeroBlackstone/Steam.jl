@@ -1,6 +1,6 @@
 using Test
 using SteamWebAPIs
-using URIs,HTTP,Serde,JSON
+using URIs,HTTP,Serde,JSON,Dates
 
 include("apikey.jl")
 include("ISteamNews.jl")

@@ -5,5 +5,4 @@
     
 	@test appnews.appid == 440
 	@test length(appnews.newsitems) == 2
-
 end

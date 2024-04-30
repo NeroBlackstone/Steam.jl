@@ -1,7 +1,7 @@
 @testset "Locations" begin
 	countries = get_countries()
     @test length(countries)!=0
-
+    
     states = get_states("CN")
     @test length(states)!=0
 

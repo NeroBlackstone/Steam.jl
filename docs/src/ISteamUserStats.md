@@ -4,12 +4,10 @@
 get_global_achievement_percentages_for_app
 ```
 
-```@docs
-get_player_achievements
-```
+# Player_Achievements
 
 ```@docs
-SteamWebAPIs.AchievementPercentage
+get_player_achievements
 ```
 
 ```@docs

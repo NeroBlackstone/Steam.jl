@@ -3,12 +3,11 @@ module SteamWebAPIs
 using URIs,HTTP,Dates,JSON,Serde
 
 include("utils.jl")
-include("ISteamNews/GetNewsForApp.jl")
-include("ISteamUserStats/GetGlobalAchievementPercentagesForApp.jl")
-include("ISteamUser/GetPlayerSummaries.jl")
-include("Locations/locations.jl")
-include("ISteamUser/GetFriendList.jl")
-include("ISteamUserStats/GetPlayerAchievements.jl")
+include("api/ISteamNews.jl")
+include("api/ISteamUser.jl")
+include("api/locations.jl")
+include("api/ISteamUserStats.jl")
+include("deser.jl")
 
 export init_key
 export get_news_for_app

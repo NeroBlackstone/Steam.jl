@@ -1,4 +1,7 @@
-const PATH_player_summaries = "/ISteamUser/GetPlayerSummaries/v0002/"
+const PATH_ISteamUser = "/ISteamUser"
+
+const PATH_player_summaries = "GetPlayerSummaries/v0002"
+const PATH_friend_list = "GetFriendList/v0001"
 
 """
     struct Player
@@ -12,11 +15,11 @@ const PATH_player_summaries = "/ISteamUser/GetPlayerSummaries/v0002/"
         avatarmedium::String
         avatarfull::String
         avatarhash::String
-        lastlogoff::Union{Int,Nothing}
+        lastlogoff::Union{DateTime,Nothing}
         personastate::Int
         # Private Data
         primaryclanid::Int
-        timecreated::Int
+        timecreated::DateTime
         personastateflags::Int
         loccountrycode::Union{String,Nothing}
         locstatecode::Union{Int,Nothing}
@@ -38,7 +41,7 @@ Return type of [`get_player_summaries`](@ref).
 - `avatarmedium`: The full URL of the player's 64x64px avatar. If the user hasn't configured an avatar, this will be the default ? avatar.
 - `avatarfull`: The full URL of the player's 184x184px avatar. If the user hasn't configured an avatar, this will be the default ? avatar.
 - `avatarhash`: Unknow.
-- `lastlogoff`: The last time the user was online, in unix time.
+- `lastlogoff`: The last time the user was online.
 - `personastate`: The user's current status. 0 - Offline, 1 - Online, 2 - Busy, 3 - Away, 4 - Snooze, 5 - looking to trade, 6 - looking to play. If the player's profile is private, this will always be "0", except is the user has set their status to looking to trade or looking to play, because a bug makes those status appear even if the profile is private.
 - `primaryclanid`: The player's primary group, as configured in their Steam Community profile.
 - `timecreated`: The time the player's account was created.
@@ -61,11 +64,11 @@ struct Player
     avatarmedium::String
     avatarfull::String
     avatarhash::String
-    lastlogoff::Union{Int,Nothing}
+    lastlogoff::Union{DateTime,Nothing}
     personastate::Int
     # Private Data
     primaryclanid::Int
-    timecreated::Int
+    timecreated::DateTime
     personastateflags::Int
     loccountrycode::Union{String,Nothing}
     locstatecode::Union{String,Nothing}
@@ -88,30 +91,59 @@ end
 julia> dump(get_player_summaries([76561198202322924]))
 Array{SteamWebAPIs.Player}((1,))
   1: SteamWebAPIs.Player
-    steamid: Int64 76561198202322924
+    steamid: Int64 76561198309475951
     communityvisibilitystate: Int64 3
     profilestate: Int64 1
-    personaname: String "archlinux"
-    profileurl: String "https://steamcommunity.com/id/NeroBlackstone/"
-    avatar: String "https://avatars.steamstatic.com/8968076741d594170face46a70c7d0bb92c14f69.jpg"
-    avatarmedium: String "https://avatars.steamstatic.com/8968076741d594170face46a70c7d0bb92c14f69_medium.jpg"
-    avatarfull: String "https://avatars.steamstatic.com/8968076741d594170face46a70c7d0bb92c14f69_full.jpg"
-    avatarhash: String "8968076741d594170face46a70c7d0bb92c14f69"
-    lastlogoff: Int64 1713382544
-    personastate: Int64 0
-    primaryclanid: Int64 103582791429521408
-    timecreated: Int64 1434629419
+    personaname: String "SkyEast"
+    profileurl: String "https://steamcommunity.com/id/skyeast/"
+    avatar: String "https://avatars.steamstatic.com/de7aed4299406a52b01b0fc087ec5eb1d380b7e7.jpg"
+    avatarmedium: String "https://avatars.steamstatic.com/de7aed4299406a52b01b0fc087ec5eb1d380b7e7_medium.jpg"
+    avatarfull: String "https://avatars.steamstatic.com/de7aed4299406a52b01b0fc087ec5eb1d380b7e7_full.jpg"
+    avatarhash: String "de7aed4299406a52b01b0fc087ec5eb1d380b7e7"
+    lastlogoff: DateTime
+      instant: Dates.UTInstant{Millisecond}
+        periods: Millisecond
+          value: Int64 63850008696000
+    personastate: Int64 1
+    primaryclanid: Int64 103582791455934525
+    timecreated: DateTime
+      instant: Dates.UTInstant{Millisecond}
+        periods: Millisecond
+          value: Int64 63601217062000
     personastateflags: Int64 0
     loccountrycode: String "CN"
-    locstatecode: String "03"
-    loccityid: Int64 10221
-    realname: Nothing nothing
-    gameextrainfo: Nothing nothing
-    gameid: Nothing nothing
+    locstatecode: Nothing nothing
+    loccityid: Nothing nothing
+    realname: String "E-Ject"
+    gameextrainfo: String "HELLDIVERS™ 2"
+    gameid: Int64 553850
 ```
 """
 function get_player_summaries(steamids::Vector{Int})::Vector{Player}
     is_above_zero(steamids...)
-    r=HTTP.get(query_url(PATH_player_summaries;query=query_dict(;SteamWebAPIs.key,steamids)))
+    path = joinpath(PATH_ISteamUser,PATH_player_summaries)
+    r=HTTP.get(query_url(path;query=query_dict(;SteamWebAPIs.key,steamids)))
     return deser_json(Vector{Player},JSON.json(first(values(first(values(JSON.parse(String(r.body))))))))
+end
+
+"""
+    get_friend_list(steamid::Int)::Dict{Int,DateTime}
+
+**Summary**: `get_friend_list` returns the friend Dict of any Steam user, provided their Steam Community profile visibility is set to "Public". Nothing will be returned if the profile is private. Key of Dict is steamid, value is the date on which we became friends.
+
+# Arguments
+- `steamid`: 64 bit Steam ID to return friend list for.
+
+# Example
+```julia-repl
+julia> get_friend_list(76561198202322924)
+friends = Dict(76561198347283942 => Dates.DateTime("2021-12-24T06:08:57")...)
+```
+"""
+function get_friend_list(steamid::Int)::Dict{Int,DateTime}
+    is_above_zero(steamid)
+    path = joinpath(PATH_ISteamUser,PATH_friend_list)
+    r=HTTP.get(query_url(path;query=query_dict(;SteamWebAPIs.key,steamid)))
+    friends = first(values(first(values(JSON.parse(String(r.body))))))
+    return Dict(parse(Int,f["steamid"])=>unix2datetime(f["friend_since"]) for f in friends)
 end
