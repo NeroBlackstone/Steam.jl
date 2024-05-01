@@ -1,7 +1,7 @@
 const PATH_ISteamUser = "/ISteamUser"
 
-const PATH_player_summaries = "GetPlayerSummaries/v0002"
-const PATH_friend_list = "GetFriendList/v0001"
+const PATH_player_summaries = "/GetPlayerSummaries/v0002"
+const PATH_friend_list = "/GetFriendList/v0001"
 
 """
     struct Player
@@ -121,7 +121,7 @@ Array{SteamWebAPIs.Player}((1,))
 """
 function get_player_summaries(steamids::Vector{Int})::Vector{Player}
     is_above_zero(steamids...)
-    path = joinpath(PATH_ISteamUser,PATH_player_summaries)
+    path = PATH_ISteamUser*PATH_player_summaries
     r=HTTP.get(query_url(path;query=query_dict(;SteamWebAPIs.key,steamids)))
     return deser_json(Vector{Player},JSON.json(first(values(first(values(JSON.parse(String(r.body))))))))
 end
@@ -142,7 +142,7 @@ friends = Dict(76561198347283942 => Dates.DateTime("2021-12-24T06:08:57")...)
 """
 function get_friend_list(steamid::Int)::Dict{Int,DateTime}
     is_above_zero(steamid)
-    path = joinpath(PATH_ISteamUser,PATH_friend_list)
+    path = PATH_ISteamUser*PATH_friend_list
     r=HTTP.get(query_url(path;query=query_dict(;SteamWebAPIs.key,steamid)))
     friends = first(values(first(values(JSON.parse(String(r.body))))))
     return Dict(parse(Int,f["steamid"])=>unix2datetime(f["friend_since"]) for f in friends)

@@ -1,8 +1,8 @@
 const PATH_ISteamUserStates = "/ISteamUserStats"
 
-const PATH_achievement_percentages= "GetGlobalAchievementPercentagesForApp/v0002"
-const PATH_player_achievements = "GetPlayerAchievements/v0001"
-const PATH_user_stats_for_game = "GetUserStatsForGame/v0002"
+const PATH_achievement_percentages= "/GetGlobalAchievementPercentagesForApp/v0002"
+const PATH_player_achievements = "/GetPlayerAchievements/v0001"
+const PATH_user_stats_for_game = "/GetUserStatsForGame/v0002"
 
 """
     get_global_achievement_percentages_for_app(gameid::Int)::Dict{String,Float16}
@@ -20,7 +20,7 @@ Dict{String, Float16}("TF_MAPS_DOOMSDAY_PUSH_INTO_EXHAUST" => 7.9...)
 """
 function get_global_achievement_percentages_for_app(gameid::Int)::Dict{String,Float16}
     is_above_zero(gameid)
-    path = joinpath(PATH_ISteamUserStates,PATH_achievement_percentages)
+    path = PATH_ISteamUserStates*PATH_achievement_percentages
     r=HTTP.get(query_url(path;query=query_dict(;gameid)))
     return Dict(a["name"]=>a["percent"] for a in first(values(first(values(JSON.parse(String(r.body)))))))
 end
@@ -110,7 +110,7 @@ SteamWebAPIs.PlayerAchievements
 """
 function get_player_achievements(steamid::Int,appid::Int;l::String)::PlayerAchievements
     is_above_zero(steamid,appid)
-    path = joinpath(PATH_ISteamUserStates,PATH_player_achievements)
+    path = PATH_ISteamUserStates*PATH_player_achievements
     r=HTTP.get(query_url(path;query=query_dict(;SteamWebAPIs.key,steamid,appid,l)))
     return deser_json(PlayerAchievements,JSON.json(first(values(JSON.parse(String(r.body))))))
 end
@@ -153,7 +153,7 @@ SteamWebAPIs.PlayerStats("Battlefield ™ V", ["Achievement_GOSCC_1"...], Dict{S
 """
 function get_user_stats_for_game(steamid::Int,appid::Int)::PlayerStats
     is_above_zero(steamid,appid)
-    path = joinpath(PATH_ISteamUserStates,PATH_user_stats_for_game)
+    path = PATH_ISteamUserStates*PATH_user_stats_for_game
     r=HTTP.get(query_url(path;query=query_dict(;SteamWebAPIs.key,steamid,appid)))
     stats_dict = first(values(JSON.parse(String(r.body))))
     achievements = [a["name"] for a in stats_dict["achievements"]]

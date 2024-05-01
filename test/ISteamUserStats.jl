@@ -5,5 +5,5 @@
 	@test length(player_achievements.achievements)!=0
 
 	player_stats = get_user_stats_for_game(76561198309475951,1238810)
-	show(player_stats)
+	@test player_stats.achievements != 0
 end
