@@ -1,4 +1,4 @@
-# News
+## News
 ```@docs
 get_news_for_app
 ```

@@ -1,4 +1,4 @@
-# QueryLocations
+## QueryLocations
 
 ```@docs
 get_countries

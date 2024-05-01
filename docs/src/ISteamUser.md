@@ -1,4 +1,4 @@
-# Player Summaries
+## Player Summaries
 
 ```@docs
 get_player_summaries
@@ -8,7 +8,7 @@ get_player_summaries
 SteamWebAPIs.Player
 ```
 
-# Friend List
+## Friend List
 
 ```@docs
 get_friend_list

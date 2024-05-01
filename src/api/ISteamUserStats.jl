@@ -2,7 +2,7 @@ const PATH_ISteamUserStates = "/ISteamUserStats"
 
 const PATH_achievement_percentages= "GetGlobalAchievementPercentagesForApp/v0002"
 const PATH_player_achievements = "GetPlayerAchievements/v0001"
-const PATH_Get_User_Stats_For_Game = "GetUserStatsForGame/v0002"
+const PATH_user_stats_for_game = "GetUserStatsForGame/v0002"
 
 """
     get_global_achievement_percentages_for_app(gameid::Int)::Dict{String,Float16}
@@ -97,15 +97,6 @@ SteamWebAPIs.PlayerAchievements
       name: String "武器はいらない"
       description: String "難易度がハード以上のミッションを、誰一人メインウェポンまたは支援武器を発砲せずに完了する"
     ...
-    37: SteamWebAPIs.Achievement
-      apiname: String "37"
-      achieved: Bool true
-      unlocktime: DateTime
-        instant: Dates.UTInstant{Millisecond}
-          periods: Millisecond
-            value: Int64 63846202326000
-      name: String "夜になると現れる"
-      description: String "夜間にミッションから離脱する"
     38: SteamWebAPIs.Achievement
       apiname: String "38"
       achieved: Bool true
@@ -122,4 +113,50 @@ function get_player_achievements(steamid::Int,appid::Int;l::String)::PlayerAchie
     path = joinpath(PATH_ISteamUserStates,PATH_player_achievements)
     r=HTTP.get(query_url(path;query=query_dict(;SteamWebAPIs.key,steamid,appid,l)))
     return deser_json(PlayerAchievements,JSON.json(first(values(JSON.parse(String(r.body))))))
+end
+
+
+"""
+    struct PlayerStats
+        gameName::String
+        achievements::Vector{String}
+        stats::Dict{String,Real}
+    end
+
+Return type of [`get_user_stats_for_game`](@ref).
+
+# Fields:
+- `gameName`: Name of the game.
+- `achievements`: Vector of achievements api name, all unlocked by user.
+- `stats`: Dict of game stats, key is stats name, value is stats value.
+"""
+struct PlayerStats
+    gameName::String
+    achievements::Vector{String}
+    stats::Dict{String,Real}
+end
+
+"""
+    get_user_stats_for_game(steamid::Int,appid::Int)::PlayerStats
+
+**Summary**: `get_user_stats_for_game` Returns a list of achievements and stats for this user by app id.
+
+# Arguments
+- `steamid`: 64 bit Steam ID to return friend list for.
+- `appid`: The ID for the game you're requesting.
+
+# Example
+```julia-repl
+julia> get_user_stats_for_game(76561198309475951,1238810)
+SteamWebAPIs.PlayerStats("Battlefield ™ V", ["Achievement_GOSCC_1"...], Dict{String, Real}("stat_4" => 1...))
+```
+"""
+function get_user_stats_for_game(steamid::Int,appid::Int)::PlayerStats
+    is_above_zero(steamid,appid)
+    path = joinpath(PATH_ISteamUserStates,PATH_user_stats_for_game)
+    r=HTTP.get(query_url(path;query=query_dict(;SteamWebAPIs.key,steamid,appid)))
+    stats_dict = first(values(JSON.parse(String(r.body))))
+    achievements = [a["name"] for a in stats_dict["achievements"]]
+    stats = Dict(s["name"]=>s["value"] for s in stats_dict["stats"])
+    return PlayerStats(stats_dict["gameName"],achievements,stats)
 end

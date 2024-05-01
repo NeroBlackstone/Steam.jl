@@ -18,5 +18,6 @@ export get_states
 export get_cities
 export get_friend_list
 export get_player_achievements
+export get_user_stats_for_game
 
 end # module SteamWebAPIs
