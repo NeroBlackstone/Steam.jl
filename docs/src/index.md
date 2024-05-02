@@ -25,3 +25,4 @@ Before calling any interface that requires an API key, you need to initialize th
 - [`get_friend_list`](@ref)
 - [`get_player_achievements`](@ref)
 - [`get_user_stats_for_game`](@ref)
+- [`get_owned_games`](@ref)

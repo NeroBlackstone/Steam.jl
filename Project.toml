@@ -1,7 +1,7 @@
 name = "SteamWebAPIs"
 uuid = "e6ff7510-e9ee-4fc9-8d54-48d13dde7e75"
 authors = ["nero "]
-version = "0.1.0"
+version = "0.2.0"
 
 [deps]
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
