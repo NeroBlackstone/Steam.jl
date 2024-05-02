@@ -6,4 +6,6 @@
 
 	player_stats = get_user_stats_for_game(76561198309475951,1238810)
 	@test player_stats.achievements != 0
+
+	number_of_current_players = get_number_of_current_players(440)
 end

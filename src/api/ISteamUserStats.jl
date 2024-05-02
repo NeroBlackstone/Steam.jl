@@ -3,6 +3,7 @@ const PATH_ISteamUserStates = "/ISteamUserStats"
 const PATH_achievement_percentages= "/GetGlobalAchievementPercentagesForApp/v2"
 const PATH_player_achievements = "/GetPlayerAchievements/v1"
 const PATH_user_stats_for_game = "/GetUserStatsForGame/v2"
+const PATH_number_of_current_players = "/GetNumberOfCurrentPlayers/v1"
 
 """
     get_global_achievement_percentages_for_app(gameid::Int)::Dict{String,Float16}
@@ -139,7 +140,7 @@ end
 """
     get_user_stats_for_game(steamid::Int,appid::Int)::PlayerStats
 
-**Summary**: `get_user_stats_for_game` Returns a list of achievements and stats for this user by app id.
+**Summary**: `get_user_stats_for_game` returns a list of achievements and stats for this user by app id.
 
 # Arguments
 - `steamid`: 64 bit Steam ID to return friend list for.
@@ -159,4 +160,25 @@ function get_user_stats_for_game(steamid::Int,appid::Int)::PlayerStats
     achievements = [a["name"] for a in stats_dict["achievements"]]
     stats = Dict(s["name"]=>s["value"] for s in stats_dict["stats"])
     return PlayerStats(stats_dict["gameName"],achievements,stats)
+end
+
+"""
+    get_number_of_current_players(appid::Int)::Int
+
+**Summary**: `get_number_of_current_players` returns number of current players by appid.
+
+# Arguments
+- `appid`: The ID for the game you're requesting.
+
+# Example
+```julia-repl
+julia> get_number_of_current_players(440)
+70000
+```
+"""
+function get_number_of_current_players(appid::Int)::Int
+    is_above_zero(appid)
+    path = PATH_ISteamUserStates*PATH_number_of_current_players
+    r=HTTP.get(query_url(path;query=query_dict(;appid)))
+    return first(values(JSON.parse(String(r.body))))["player_count"]
 end

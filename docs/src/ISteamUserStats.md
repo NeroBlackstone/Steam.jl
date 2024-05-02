@@ -1,3 +1,9 @@
+## Number of Current Players
+
+```@docs
+get_number_of_current_players
+```
+
 ## Achievement Percentage
 
 ```@docs

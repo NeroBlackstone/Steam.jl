@@ -22,5 +22,6 @@ export get_player_achievements
 export get_user_stats_for_game
 export get_owned_games
 export get_recently_played_games
+export get_number_of_current_players
 
 end # module SteamWebAPIs

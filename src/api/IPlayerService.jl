@@ -124,7 +124,7 @@ Recently played game information.
 - `name`: The name of the game.
 - `playtime_2weeks`: The total number of minutes played in the last 2 weeks.
 - `playtime_forever`: The total number of minutes played "on record", since Steam began tracking total playtime in early 2009.
-- `img_icon_url`: - `img_icon_url`: These are the filenames of various images for the game. To construct the URL to the image, use this format: http://media.steampowered.com/steamcommunity/public/images/apps/{appid}/{hash}.jpg. For example, the TF2 logo is returned as "07385eb55b5ba974aebbe74d3c99626bda7920b8", which maps to the [URL](http://media.steampowered.com/steamcommunity/public/images/apps/440/07385eb55b5ba974aebbe74d3c99626bda7920b8.jpg).
+- `img_icon_url`: These are the filenames of various images for the game. To construct the URL to the image, use this format: http://media.steampowered.com/steamcommunity/public/images/apps/{appid}/{hash}.jpg. For example, the TF2 logo is returned as "07385eb55b5ba974aebbe74d3c99626bda7920b8", which maps to the [URL](http://media.steampowered.com/steamcommunity/public/images/apps/440/07385eb55b5ba974aebbe74d3c99626bda7920b8.jpg).
 """
 struct RecentGame
     appid::Int

@@ -11,10 +11,10 @@ Please apply for your [steam api key](https://steamcommunity.com/dev/apikey) fir
 Before calling any interface that requires an API key, you need to initialize the Steam Web API key with `init_key()`. Otherwise, you can only call interfaces that do not require an API key.
 
 ``` julia-repl
->julia init_key()
+julia> init_key()
 ```
 
-# Implemented functions
+## Implemented functions
 
 - [`get_news_for_app`](@ref)
 - [`get_player_summaries`](@ref)
@@ -27,3 +27,16 @@ Before calling any interface that requires an API key, you need to initialize th
 - [`get_user_stats_for_game`](@ref)
 - [`get_owned_games`](@ref)
 - [`get_recently_played_games`](@ref)
+- [`get_number_of_current_players`](@ref)
+
+
+## Example
+
+Get the number of games you purchased but never played:
+
+```julia-repl
+julia> using SteamWebAPIs
+julia> init_key()
+julia> count(g->g.playtime_forever==0,get_owned_games(76561198202322923).games)
+73
+```
