@@ -1,8 +1,8 @@
 const PATH_ISteamUserStates = "/ISteamUserStats"
 
-const PATH_achievement_percentages= "/GetGlobalAchievementPercentagesForApp/v0002"
-const PATH_player_achievements = "/GetPlayerAchievements/v0001"
-const PATH_user_stats_for_game = "/GetUserStatsForGame/v0002"
+const PATH_achievement_percentages= "/GetGlobalAchievementPercentagesForApp/v2"
+const PATH_player_achievements = "/GetPlayerAchievements/v1"
+const PATH_user_stats_for_game = "/GetUserStatsForGame/v2"
 
 """
     get_global_achievement_percentages_for_app(gameid::Int)::Dict{String,Float16}

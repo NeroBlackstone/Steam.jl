@@ -4,3 +4,5 @@ end
 function Serde.deser(::Type{T},::Type{E},x::Int)::E where {T<:Union{Achievement,Game},E<:Union{DateTime,Nothing}}
     return x==0 ? nothing : unix2datetime(x) 
 end
+
+Serde.nulltype(::Type{Vector{RecentGame}}) = nothing

@@ -1,7 +1,7 @@
 const PATH_ISteamUser = "/ISteamUser"
 
-const PATH_player_summaries = "/GetPlayerSummaries/v0002"
-const PATH_friend_list = "/GetFriendList/v0001"
+const PATH_player_summaries = "/GetPlayerSummaries/v2"
+const PATH_friend_list = "/GetFriendList/v1"
 
 """
     struct Player

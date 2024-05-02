@@ -1,4 +1,4 @@
-const PATH_news_for_app= "/ISteamNews/GetNewsForApp/v0002/"
+const PATH_news_for_app= "/ISteamNews/GetNewsForApp/v2/"
 
 """
     struct NewsItem

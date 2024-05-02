@@ -21,5 +21,6 @@ export get_friend_list
 export get_player_achievements
 export get_user_stats_for_game
 export get_owned_games
+export get_recently_played_games
 
 end # module SteamWebAPIs
