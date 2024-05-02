@@ -1,4 +1,4 @@
-## SteamWebAPIs.jl
+# SteamWebAPIs.jl
 
 Steam Web API wrapper for Julia
 
