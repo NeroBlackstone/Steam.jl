@@ -1,6 +1,6 @@
 name = "SteamWebAPIs"
 uuid = "e6ff7510-e9ee-4fc9-8d54-48d13dde7e75"
-authors = ["nero "]
+authors = ["NeroBlackstone <gf7600gs@gmail.com>"]
 version = "1.0.0"
 
 [deps]
